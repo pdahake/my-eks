@@ -20,7 +20,8 @@ resource "aws_eks_cluster" "eks" {
     #subnet_ids = concat(local.worker_subnet_ids, local.public_subnet_ids)
     subnet_ids         = concat(local.worker_subnet_ids, [])
     security_group_ids = [aws_security_group.add_cluster.id]
-    public_access_cidrs = ["${data.http.ip.response_body}/32"]
+    #public_access_cidrs = ["${data.http.ip.response_body}/32"]
+    public_access_cidrs = [local.public_ip_cidr]
   }
 
 

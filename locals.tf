@@ -13,6 +13,9 @@ locals {
 
   cluster_endpoint                   = try(aws_eks_cluster.eks.endpoint, null)
   cluster_certificate_authority_data = try(aws_eks_cluster.eks.certificate_authority[0].data, null)
+
+  #public_ip_cidr = "${data.http.ip.response_body}/32"
+  public_ip_cidr = "100.1.131.10/32"
 }
 
 output "vpc_id" {

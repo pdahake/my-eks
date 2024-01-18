@@ -24,7 +24,7 @@ resource "aws_security_group" "add_cluster" {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = ["${data.http.ip.response_body}/32"]
+    cidr_blocks = [local.public_ip_cidr]
   }
   ingress {
     description = "Nodes on ephemeral ports"
@@ -51,7 +51,7 @@ resource "aws_security_group" "add_cluster" {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = ["${data.http.ip.response_body}/32"]
+    cidr_blocks = [local.public_ip_cidr]
   }
   tags = { Name = "add_cluster_group_sg" }
 }
