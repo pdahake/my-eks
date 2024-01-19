@@ -1,7 +1,7 @@
 variable "cluster_name" {
   type        = string
   description = "eks cluster name"
-  default     = "my-eks"
+  default     = "my-eks2"
 }
 
 variable "k8s_version" {
