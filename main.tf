@@ -106,7 +106,7 @@ module "eks" {
       #   effect = "NO_SCHEDULE"
       # }]
 
-      instance_types = ["t3.micro"]
+      instance_types = ["t3.small"]
       capacity_type  = "SPOT"
     }
   }

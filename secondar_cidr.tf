@@ -1,32 +1,33 @@
 
-resource "null_resource" "az_subnet_daemonset_vars" {
+# resource "null_resource" "az_subnet_daemonset_vars" {
 #   depends_on = [
 #     // Needs the VPC CNI installed to update its change
-#     aws_eks_addon.vpc_cni,
+#     module.eks.cluster_addons
+#     #aws_eks_addon.vpc_cni,
 #     // Needs this security group rule to exist to gain access to the api
-#     aws_security_group_rule.control_plane
+#     #aws_security_group_rule.control_plane
 #   ]
-  triggers = {
-    aws_region   = local.region
-    cluster_name = local.cluster_name
-  }
-  provisioner "local-exec" {
-    command = <<-EOT
-        aws eks update-kubeconfig 
-            --region $AWS_REGION 
-            --name $CLUSTER_NAME 
-            --kubeconfig kubeconfig.yaml 
-        export KUBECONFIG=./kubeconfig.yaml
-        kubectl set env daemonset aws-node -n kube-system AWS_VPC_K8S_CNI_CUSTOM_NETWORK_CFG=true
-        kubectl set env daemonset aws-node -n kube-system ENI_CONFIG_LABEL_DEF=topology.kubernetes.io/zone
-        kubectl set env daemonset aws-node -n kube-system ENABLE_PREFIX_DELEGATION=true
-EOT
-    environment = {
-      AWS_REGION   = self.triggers.aws_region
-      CLUSTER_NAME = self.triggers.cluster_name
-    }
-  }
-}
+#   triggers = {
+#     aws_region   = local.region
+#     cluster_name = local.cluster_name
+#   }
+#   provisioner "local-exec" {
+#     command = <<-EOT
+#         aws eks update-kubeconfig 
+#             --region $AWS_REGION 
+#             --name $CLUSTER_NAME 
+#             --kubeconfig kubeconfig.yaml 
+#         export KUBECONFIG=./kubeconfig.yaml
+#         kubectl set env daemonset aws-node -n kube-system AWS_VPC_K8S_CNI_CUSTOM_NETWORK_CFG=true
+#         kubectl set env daemonset aws-node -n kube-system ENI_CONFIG_LABEL_DEF=topology.kubernetes.io/zone
+#         kubectl set env daemonset aws-node -n kube-system ENABLE_PREFIX_DELEGATION=true
+# EOT
+#     environment = {
+#       AWS_REGION   = self.triggers.aws_region
+#       CLUSTER_NAME = self.triggers.cluster_name
+#     }
+#   }
+# }
 
 
 ## the below is deploued via helm chart, so no need to deploy
