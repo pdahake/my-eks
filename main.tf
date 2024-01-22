@@ -30,8 +30,20 @@ module "eks" {
     }
   }
   enable_irsa = true
-  #create_aws_auth_configmap = true
-  #manage_aws_auth_configmap = true
+  # create_aws_auth_configmap = true
+  manage_aws_auth_configmap = true
+  aws_auth_roles = [
+    # We need to add in the Karpenter node IAM role for nodes launched by Karpenter
+    {
+      rolearn  = module.karpenter.role_arn
+      username = "system:node:{{EC2PrivateDNSName}}"
+      groups = [
+        "system:bootstrappers",
+        "system:nodes",
+      ]
+    },
+  ]
+
   create_kms_key = false
   cluster_encryption_config = ""
   cluster_security_group_additional_rules = {
@@ -106,14 +118,16 @@ module "eks" {
       #   effect = "NO_SCHEDULE"
       # }]
 
-      instance_types = ["t3.small"]
+      instance_types = ["t3.large"]
       capacity_type  = "SPOT"
     }
   }
-
+  node_security_group_tags = {
+    "karpenter.sh/discovery" = var.cluster_name
+  }
   tags = {
-    Environment = "staging"
     Name = var.cluster_name
     Version = var.k8s_version
+    Environment = var.environment
   }
 }

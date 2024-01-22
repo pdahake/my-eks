@@ -2,18 +2,18 @@
 apiVersion: crd.k8s.amazonaws.com/v1alpha1
 kind: ENIConfig
 metadata: 
-  name: {{ .Values.az-1 }}
-spec: 
-  securityGroups: 
-    - {{ .Values.security-group}}
-  subnet: {{ .Values.subnet-1 }}
+  name: {{ .Values.az1 }}
+spec:
+  securityGroups:
+    - {{ .Values.securitygroup}}
+  subnet: {{ .Values.subnet1 }}
 
 ---
 apiVersion: crd.k8s.amazonaws.com/v1alpha1
 kind: ENIConfig
-metadata: 
-  name: {{ .Values.az-2 }}
-spec: 
-  securityGroups: 
-    - {{ .Values.security-group}}
-  subnet: {{ .Values.subnet-2 }}
+metadata:
+  name: {{ .Values.az2 }}
+spec:
+  securityGroups:
+    - {{ .Values.securitygroup}}
+  subnet: {{ .Values.subnet2 }}

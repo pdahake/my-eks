@@ -1,5 +1,5 @@
-security-group : sg-0e03e1f56d7e2e559
-az-1: us-east-1a
-az-2: us-east-1b
-subnet-1: subnet-09561967320ae2f6e
-subnet-2: subnet-00b61201c85ea5826
+securitygroup : sg-045c0ac3194f8bbbd
+az1: us-east-1a
+az2: us-east-1b
+subnet1: subnet-09561967320ae2f6e
+subnet2: subnet-00b61201c85ea5826
